@@ -1,0 +1,23 @@
+---
+- name: "Practice from ansible"
+  hosts: localhost
+  become: true
+
+  vars:
+  - 
+
+  roles:
+  - postgres
+  - ruby
+  - nginxinc.nginx_core
+
+  post_tasks:
+  - name: "Configure nginx"
+    ansible.builtin.copy:
+    src: "./files/nginx.conf"
+    dest: "/etc/nginx/nginx.conf"
+
+  - name: "Reload nginx"
+    ansible.builtin.service:
+      name: "nginx"
+      state: "reloaded"

@@ -1,0 +1,5 @@
+roles:
+- src: community.postgresql
+
+collections:
+- name: nginxinc.nginx_core
