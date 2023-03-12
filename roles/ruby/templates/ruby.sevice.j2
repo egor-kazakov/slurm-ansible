@@ -1,0 +1,9 @@
+[Unit]
+Description=Instance Ruby
+Requires=etcd2.service
+After=etcd2.service
+
+[Service]
+# Get network environmental variables
+EnvironmentFile=/app/environment
+ExecStart=bundle exec rake db:migrate && bundle exec puma -b unix:///var/run/puma.sock -e $RAILS_ENV config.ru

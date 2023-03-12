@@ -4,13 +4,15 @@
   become: true
 
   vars:
-  - 
+    posgresql_user:
+      - name: postgres
+        password: password
 
   roles:
   - postgres
   - ruby
-  - nginxinc.nginx_core
-
+  - nginxinc.nginx
+  
   post_tasks:
   - name: "Configure nginx"
     ansible.builtin.copy:

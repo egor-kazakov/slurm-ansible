@@ -1,1 +1,37 @@
 ---
+- name: "Install libxml2"
+  ansible.builtin.yum:
+    name: {{ item }}
+    state: "latest"
+  loop:
+    - "ruby.x86_64" 
+    - "libxml2-devel.x86_64"
+
+- name: "Copy files to /app"
+  ansible.builtin.copy:
+    src: "files/"
+    dest: "/app"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+
+- name: "Create ENV"
+  ansible.builtin.template:
+    src: "environment.j2"
+    dest: "/app/environment"
+    owner: root
+    group: root
+    mode: "0600"
+
+- name: "Create ruby service"
+  ansible.builtin.template:
+    src: "ruby.service.j2"
+    dest: "/etc/systemd/system/ruby.service"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+
+- name: "Starting service"
+  ansible.builtin.service:
+    name: "ruby"
+    state: "started"

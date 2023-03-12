@@ -10,7 +10,7 @@ ansible-galaxy install -r requirements.yml
 ansible-galaxy collection install -r requirements.yml
 ```
 
-# Variable
+# Variables
 | Variable | Default Key |
 |----------|-------------|
 | SECRET_KEY_BASE | secret |
