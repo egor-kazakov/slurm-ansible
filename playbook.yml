@@ -12,12 +12,12 @@
   - postgres
   - ruby
   - nginxinc.nginx
-  
+
   post_tasks:
   - name: "Configure nginx"
     ansible.builtin.copy:
-    src: "./files/nginx.conf"
-    dest: "/etc/nginx/nginx.conf"
+      src: "./files/nginx.conf"
+      dest: "/etc/nginx/nginx.conf"
 
   - name: "Reload nginx"
     ansible.builtin.service:

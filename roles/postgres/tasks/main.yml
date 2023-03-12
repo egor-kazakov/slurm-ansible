@@ -1,26 +1,6 @@
 ---
-- name: "Initialise variables"
-  include_role:
-    name: geerlingguy.postgresql
-    tasks_from: variables
+- name: "Install Postgres"
+  ansible.builtin.yum:
+    name: "postgresql-server"
+    state: "latest"
 
-- name: "Init postgres"
-  include_role:
-    name: geerlingguy.postgresql
-    tasks_from: initialize
-
-
-- name: Start PostgreSQL server
-  systemd:
-    name: "{{ postgresql_daemon }}"
-    state: started
-
-- name: "Configure postgres"
-  include_role:
-    name: geerlingguy.postgresql
-    tasks_from: configure
-
-- name: "Configure users"
-  include_role:
-    name: geerlingguy.postgresql
-    tasks_from: users

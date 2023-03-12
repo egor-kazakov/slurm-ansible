@@ -1,11 +1,15 @@
 ---
+- name: "Install Ruby"
+  ansible.builtin.yum:
+    name: "ruby" 
+    update_cache: yes
+    state: "latest"
+
 - name: "Install libxml2"
   ansible.builtin.yum:
-    name: {{ item }}
+    name: "libxml2-devel"
+    update_cache: yes
     state: "latest"
-  loop:
-    - "ruby.x86_64" 
-    - "libxml2-devel.x86_64"
 
 - name: "Copy files to /app"
   ansible.builtin.copy:
@@ -13,7 +17,7 @@
     dest: "/app"
     owner: "root"
     group: "root"
-    mode: "0644"
+    mode: "0755"
 
 - name: "Create ENV"
   ansible.builtin.template:

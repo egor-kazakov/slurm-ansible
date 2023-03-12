@@ -1,5 +1,4 @@
 roles:
-- src: geerlingguy.postgresql
 - src: nginxinc.nginx
 
 collections:
