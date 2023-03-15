@@ -1,22 +1,28 @@
-# Information
-**Description:** Practice from Ansible course.
+# Информация
+**Цель:** Закрепление материала полученного в курсе Ansible, получение практического опыта написания и использования ролей.
 
-**OS:** CentOS 7
+**Результат:** Работающая инфраструктура для приложения. Репозиторий на Github.com с ролями и плейбуками Ansible.
 
-# Prepare
-Install _roles_ and _collections_:
+**Задание:** Необходимо подготовить сервер для работы приложения на основе ОС Centos 7.
+
+**ОС:** CentOS 7 (https://app.vagrantup.com/generic/boxes/centos7/versions/4.2.14)
+
+# Подготовка
+Перед выполнением плейбука установите роли и коллекции командами:
 ```
 ansible-galaxy install -r requirements.yml
 ansible-galaxy collection install -r requirements.yml
 ```
-Then exec playbook:
+Затем запустите плейбук:
 ```
 ansible-playbook playbook.yml
 ```
 
-# Variables
-| Variable | Default Key |
-|----------|-------------|
+***ВАЖНО!!!** При установке Ansible потребуется репозиторий `epel-release`*
+
+# Переменные
+| Название | Ключ по умолчанию |
+|----------|-------------------|
 | SECRET_KEY_BASE | secret |
 | RAILS_ENV | production |
 | RAILS_LOG_TO_STDOUT | 1 |
