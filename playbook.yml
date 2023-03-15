@@ -8,6 +8,23 @@
       - name: postgres
         password: password       
 
+  pre_tasks:
+  - name: "Disable Firewalld"
+    ansible.builtin.service:
+      name: "firewalld"
+      state: "stopped"
+      enabled: false
+
+  - name: "Disable Selinux"
+    ansible.posix.selinux:
+      state: "disabled"
+    register: selinux
+
+  - name: "Disable Selinux (now)"
+    ansible.builtin.shell:
+      cmd: "setenforce 0"
+    when: selinux.changed
+
   roles:
   - postgres
   - ruby

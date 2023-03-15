@@ -4,11 +4,6 @@
     name: "postgresql-server"
     state: "latest"
 
-- name: "Instal python3-psycopg2"
-  ansible.builtin.yum:
-    name: "python3-psycopg2"
-    state: "latest"
-
 - name: Check if PostgreSQL database is initialized.
   stat:
     path: "/var/lib/pgsql/data/PG_VERSION"
@@ -18,24 +13,51 @@
   command: postgresql-setup initdb
   when: not pgdata_dir_version.stat.exists
   become: true
-  become_user: "{{ postgresql_user }}"
+  become_user: "postgres"
   become_method: sudo
+
+- name: "Change authorization method"
+  ansible.builtin.lineinfile:
+    path: "/var/lib/pgsql/data/pg_hba.conf"
+    regexp: "^host"
+    #line: "host    all             all             127.0.0.1/32            password"
+    line: "host    all             all             0.0.0.0/0               password"
+    firstmatch: yes
+    backup: true
+  notify: "Restart postgres"
+
+- name: "Change config postgresql.conf"
+  ansible.builtin.lineinfile:
+    path: "/var/lib/pgsql/data/postgresql.conf"
+    regexp: "#listen_addresses = 'localhost'"
+    line: "listen_addresses = '*'"
+    firstmatch: yes
+    backup: true
+  notify: "Restart postgres"
 
 - name: "Start service DB"
   ansible.builtin.service:
     name: "postgresql"
     state: "started"
 
-- name: Create the database foo to bar
-  community.postgresql.postgresql_db:
-    name: ruby
-    login_user: postgres
+- name: "Instal psycopg2"
+  ansible.builtin.yum:
+    name: "python-psycopg2"
+    state: "latest"
 
-- name: Create user s053278
+- name: Create DB
+  community.postgresql.postgresql_db:
+    db: ruby
+  become: true
+  become_user: "postgres"
+
+- name: Create DB_USER
   community.postgresql.postgresql_user:
     db: ruby
-    user: postgres
+    user: ruby
     password: password
   become: true
-  become_user: "{{ postgresql_user }}"
-  become_method: sudo
+  become_user: "postgres"
+
+- name: Restart Postgres with handlers
+  ansible.builtin.meta: flush_handlers
