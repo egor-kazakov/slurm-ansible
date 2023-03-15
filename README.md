@@ -18,8 +18,6 @@ ansible-galaxy collection install -r requirements.yml
 ansible-playbook playbook.yml
 ```
 
-***ВАЖНО!!!** При установке Ansible потребуется репозиторий `epel-release`*
-
 # Переменные
 | Название | Ключ по умолчанию |
 |----------|-------------------|
