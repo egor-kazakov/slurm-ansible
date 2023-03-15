@@ -4,3 +4,38 @@
     name: "postgresql-server"
     state: "latest"
 
+- name: "Instal python3-psycopg2"
+  ansible.builtin.yum:
+    name: "python3-psycopg2"
+    state: "latest"
+
+- name: Check if PostgreSQL database is initialized.
+  stat:
+    path: "/var/lib/pgsql/data/PG_VERSION"
+  register: pgdata_dir_version
+
+- name: "Init DB"
+  command: postgresql-setup initdb
+  when: not pgdata_dir_version.stat.exists
+  become: true
+  become_user: "{{ postgresql_user }}"
+  become_method: sudo
+
+- name: "Start service DB"
+  ansible.builtin.service:
+    name: "postgresql"
+    state: "started"
+
+- name: Create the database foo to bar
+  community.postgresql.postgresql_db:
+    name: ruby
+    login_user: postgres
+
+- name: Create user s053278
+  community.postgresql.postgresql_user:
+    db: ruby
+    user: postgres
+    password: password
+  become: true
+  become_user: "{{ postgresql_user }}"
+  become_method: sudo
