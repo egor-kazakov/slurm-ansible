@@ -20,13 +20,13 @@
 
 - name: "Install Ruby"
   ansible.builtin.yum:
-    name: "rh-ruby26"
+    name: "{{ item }}"
     state: "present"
   with_items:
     - "rh-ruby26"
     - "rh-ruby26-ruby-devel"
     - "rh-ruby26-build"
-    - "rh-ruby26-rubygem-bundler.noarch"
+    - "rh-ruby26-rubygem-bundler"
 
 - name: "Create user for build project"
   ansible.builtin.user:
@@ -51,6 +51,7 @@
 - name: "Build from Gemfile"
   community.general.bundler:
     chdir: "/opt/xPaste"
+    extra_args: "--path /opt/xPaste/.bundle"
   become: true
   become_user: "{{ ruby_user }}"
   environment:
