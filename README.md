@@ -9,6 +9,8 @@ Install _roles_ and _collections_:
 ansible-galaxy install -r requirements.yml
 ansible-galaxy collection install -r requirements.yml
 ```
+Then exec playbook:
+`ansible-playbook playbook.yml`
 
 # Variables
 | Variable | Default Key |
