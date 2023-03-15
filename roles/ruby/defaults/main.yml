@@ -1,0 +1,17 @@
+ruby_user: ruby
+
+secret_key_base: secret
+
+rails_env: production
+
+rails_log_to_stdout: 1
+
+db_host: 127.0.0.1
+
+db_port: 5432
+
+db_name: ruby
+
+db_user: ruby
+
+db_password: password

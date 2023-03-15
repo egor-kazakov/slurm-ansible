@@ -30,29 +30,29 @@
 
 - name: "Create user for build project"
   ansible.builtin.user:
-    name: ruby
+    name: "{{ ruby_user }}"
 
 - name: "Copy project xPaste"
   ansible.builtin.copy:
     src: "files/xPaste"
     dest: "/opt"
-    owner: "ruby"
-    group: "ruby"
+    owner: "{{ ruby_user }}"
+    group: "{{ ruby_user }}"
     mode: "0755"
 
 - name: "Create ENV"
   ansible.builtin.template:
     src: "env.j2"
     dest: "/opt/xPaste/env"
-    owner: "ruby"
-    group: "ruby"
+    owner: "{{ ruby_user }}"
+    group: "{{ ruby_user }}"
     mode: "0644"
 
 - name: "Build from Gemfile"
   community.general.bundler:
     chdir: "/opt/xPaste"
   become: true
-  become_user: "ruby"
+  become_user: "{{ ruby_user }}"
   environment:
     - PATH: "/opt/rh/rh-ruby26/root/usr/local/bin:/opt/rh/rh-ruby26/root/usr/bin:/usr/local/sbin:/sbin:/bin:/usr/sbin:/usr/bin"
     - LD_LIBRARY_PATH: "/opt/rh/rh-ruby26/root/usr/local/lib64:/opt/rh/rh-ruby26/root/usr/lib64"
@@ -61,13 +61,13 @@
 
 - name: "Create ruby service"
   ansible.builtin.template:
-    src: "ruby.service.j2"
-    dest: "/etc/systemd/system/ruby.service"
+    src: "xpaste.service.j2"
+    dest: "/etc/systemd/system/xpaste.service"
     owner: "root"
     group: "root"
     mode: "0644"
 
 - name: "Starting service"
   ansible.builtin.service:
-    name: "ruby"
+    name: "xpaste"
     state: "started"

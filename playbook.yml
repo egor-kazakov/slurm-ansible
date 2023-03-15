@@ -4,9 +4,14 @@
   become: true
 
   vars:
-    postgresql_user:
-      - name: postgres
-        password: password       
+    secret_key_base: secret
+    rails_env: production
+    rails_log_to_stdout: 1
+    db_host: 127.0.0.1
+    db_port: 5432
+    db_name: ruby
+    db_user: ruby
+    db_password: password
 
   pre_tasks:
   - name: "Disable Firewalld"
@@ -32,8 +37,8 @@
 
   post_tasks:
   - name: "Configure nginx"
-    ansible.builtin.copy:
-      src: "./files/nginx.conf"
+    ansible.builtin.template:
+      src: "nginx.conf.j2"
       dest: "/etc/nginx/nginx.conf"
     register: nginx_conf
 

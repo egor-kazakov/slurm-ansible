@@ -4,12 +4,12 @@
     name: "postgresql-server"
     state: "latest"
 
-- name: Check if PostgreSQL database is initialized.
+- name: "Check if DB is initialized"
   stat:
     path: "/var/lib/pgsql/data/PG_VERSION"
   register: pgdata_dir_version
 
-- name: "Init DB"
+- name: "initializing DB"
   command: postgresql-setup initdb
   when: not pgdata_dir_version.stat.exists
   become: true
@@ -20,7 +20,6 @@
   ansible.builtin.lineinfile:
     path: "/var/lib/pgsql/data/pg_hba.conf"
     regexp: "^host"
-    #line: "host    all             all             127.0.0.1/32            password"
     line: "host    all             all             0.0.0.0/0               password"
     firstmatch: yes
     backup: true
@@ -43,21 +42,21 @@
 - name: "Install psycopg2"
   ansible.builtin.yum:
     name: "python-psycopg2"
-    state: "latest"
+    state: "present"
 
-- name: Create DB
+- name: "Create DB"
   community.postgresql.postgresql_db:
-    db: ruby
+    db: "{{ db_name }}"
   become: true
   become_user: "postgres"
 
-- name: Create DB_USER
+- name: "Create DB_USER"
   community.postgresql.postgresql_user:
-    db: ruby
-    user: ruby
-    password: password
+    db: "{{ db_name }}"
+    user: "{{ db_user }}"
+    password: "{{ db_password }}"
   become: true
   become_user: "postgres"
 
-- name: Restart Postgres with handlers
+- name: "Restart Postgres with handlers"
   ansible.builtin.meta: flush_handlers
