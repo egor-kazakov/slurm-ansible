@@ -4,9 +4,9 @@
   become: true
 
   vars:
-    posgresql_user:
+    postgresql_user:
       - name: postgres
-        password: password
+        password: password       
 
   roles:
   - postgres

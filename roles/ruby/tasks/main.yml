@@ -1,9 +1,15 @@
 ---
-- name: "Install Ruby"
-  ansible.builtin.yum:
-    name: "ruby" 
-    update_cache: yes
-    state: "latest"
+# - name: "Install Ruby"
+#   community.general.snap:
+#     name: "ruby"
+
+# - name: "Install Bundler"
+#   community.general.gem:
+#     name: "bundler"
+
+# - name: "Install Nokogiri"
+#   community.general.gem:
+#     name: "nokogiri"
 
 - name: "Install libxml2"
   ansible.builtin.yum:
@@ -26,6 +32,14 @@
     owner: root
     group: root
     mode: "0600"
+
+- name: "Build from Gemfile"
+  community.general.bundler:
+    chdir: "/app"
+    clean: true
+
+  #bundle install --clean --no-cache --without development
+    
 
 - name: "Create ruby service"
   ansible.builtin.template:

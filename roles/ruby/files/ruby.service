@@ -1,0 +1,15 @@
+[Unit]
+Description=Ruby application
+After=network.target
+
+[Service]
+EnvironmentFile=/app/env
+WorkingDirectory=/app
+#Environment=LD_LIBRARY_PATH=/opt/rh/rh-ruby26/root/usr/lib64/
+#Environment=PATH=/opt/rh/rh-ruby26/root/usr/local/bin:/opt/rh/rh-ruby26/root/usr/bin:/usr/local/sbin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin
+ExecStart=/opt/rh/rh-ruby26/root/usr/bin/bundle exec puma -b unix:/tmp/puma.sock -e production config.ru
+Type=idle
+KillMode=process
+
+[Install]
+WantedBy=multiuser.target

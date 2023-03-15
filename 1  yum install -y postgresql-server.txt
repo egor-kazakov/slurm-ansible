@@ -1,0 +1,100 @@
+    1  yum install -y postgresql-server postgresql-contrib
+    2  postgresql-setup initdb
+    3  systemctl enable postgresql-11
+    4  systemctl enable postgresql
+    5  systemctl start postgresql
+    6  firewall-cmd --help
+    7  systemctl stop firewalld.service
+    8  iptables -L
+    9  firewall-cmd --state
+   10  find / -name postgres.conf
+   11  find / -name postgresql.conf
+   12  nano /var/lib/pgsql/data/postgresql.conf
+   13  yum install -y nano
+   14  nano /var/lib/pgsql/data/postgresql.conf
+   15  systemctl restart firewalld.service
+   16  sudo -u postgres createuser ruby --interactive
+   17  sudo -u postgres createdb ruby
+   18  systemctl restart postgresql.service
+   19  systemctl stop firewalld.service
+   20  find / -name pg_hba.conf
+   21  nano /var/lib/pgsql/data/pg_hba.conf
+   22  systemctl  restart postgresql.service
+   23  nano /var/lib/pgsql/data/pg_hba.conf
+   24  systemctl  restart postgresql.service
+   25  nano /var/lib/pgsql/data/pg_hba.conf
+   26  systemctl  restart postgresql.service
+   27  sudo -u postgres psql
+   28  yum install -y centos-release-scl-rh centos-release-scl
+   29  yum list | grep ruby
+   30  yum install -y rh-ruby26
+   31  yum group install "Development Tools"
+   32  yum install -y libxml2-devel
+   33  mkdir /app
+   34  cp -r /home/vagrant/ansible/roles/ruby/files/* /app
+   35  cd /app
+   36  ls
+   37  source /opt/rh/rh-ruby26/enable
+   38  bundle config build.nokogiri --use-system-libraries
+   39  yum install -y rh-ruby26-build
+   40  yum install -y rh-ruby26-rubygem-bundler
+   41  bundle config build.nokogiri --use-system-libraries
+   42  bundle install --clean --no-cache --without development
+   43  less /opt/rh/rh-ruby26/root/usr/lib64/gems/ruby/nokogiri-1.8.2/gem_make.out
+   44  yum install -y rh-ruby26-ruby-devel
+   45  bundle install --clean --no-cache --without development
+   46  less /opt/rh/rh-ruby26/root/usr/lib64/gems/ruby/nokogiri-1.8.2/gem_make.out
+   47  yum install -y libxslt-devel
+   48  bundle install --clean --no-cache --without development
+   49  less /opt/rh/rh-ruby26/root/usr/lib64/gems/ruby/pg-0.21.0/gem_make.out
+   50  yum install -y libpqxx-devel
+   51  bundle install --clean --no-cache --without development
+   52  SECRET_KEY_BASE=secret RAILS_ENV=production RAILS_LOG_TO_STDOUT=1 DB_HOST=127.0.0.1 DB_PORT=5432 DB_NAME=ruby DB_USER=ruby DB_PASSWORD=password bundle exec rake db:migrate && bundle exec puma -b unix:/tmp/puma.sock -e $RAILS_ENV config.ru
+   53  yum install -y nodejs
+   54  SECRET_KEY_BASE=secret RAILS_ENV=production RAILS_LOG_TO_STDOUT=1 DB_HOST=127.0.0.1 DB_PORT=5432 DB_NAME=ruby DB_USER=ruby DB_PASSWORD=password bundle exec rake db:migrate && bundle exec puma -b unix:/tmp/puma.sock -e $RAILS_ENV config.ru
+   55  find / -name pg_hba.conf
+   56  nano /var/lib/pgsql/data/pg_hba.conf
+   57  systemctl restart postgresql.service
+   58  nano /var/lib/pgsql/data/pg_hba.conf
+   59  systemctl restart postgresql.service
+   60  SECRET_KEY_BASE=secret RAILS_ENV=production RAILS_LOG_TO_STDOUT=1 DB_HOST=127.0.0.1 DB_PORT=5432 DB_NAME=ruby DB_USER=ruby DB_PASSWORD=password bundle exec rake db:migrate && bundle exec puma -b unix:/tmp/puma.sock -e $RAILS_ENV config.ru
+   61  nano /var/lib/pgsql/data/pg_hba.conf
+   62  systemctl restart postgresql.service
+   63  SECRET_KEY_BASE=secret RAILS_ENV=production RAILS_LOG_TO_STDOUT=1 DB_HOST=127.0.0.1 DB_PORT=5432 DB_NAME=ruby DB_USER=ruby DB_PASSWORD=password bundle exec rake db:migrate && bundle exec puma -b unix:/tmp/puma.sock -e $RAILS_ENV config.ru
+   64  nano /var/lib/pgsql/data/pg_hba.conf
+   65  SECRET_KEY_BASE=secret RAILS_ENV=production RAILS_LOG_TO_STDOUT=1 DB_HOST=127.0.0.1 DB_PORT=5432 DB_NAME=ruby DB_USER=ruby DB_PASSWORD=password bundle exec rake db:migrate && bundle exec puma -b unix:/tmp/puma.sock -e $RAILS_ENV config.ru
+   66  systemctl restart postgresql.service
+   67  SECRET_KEY_BASE=secret RAILS_ENV=production RAILS_LOG_TO_STDOUT=1 DB_HOST=127.0.0.1 DB_PORT=5432 DB_NAME=ruby DB_USER=ruby DB_PASSWORD=password bundle exec rake db:migrate && bundle exec puma -b unix:/tmp/puma.sock -e $RAILS_ENV config.ru
+   68  SECRET_KEY_BASE=secret RAILS_ENV=production RAILS_LOG_TO_STDOUT=1 DB_HOST=127.0.0.1 DB_PORT=5432 DB_NAME=ruby DB_USER=ruby DB_PASSWORD=password bundle exec puma -b unix:/tmp/puma.sock -e $RAILS_ENV config.ru
+   69  yum install -y nginx
+   70  cp /home/vagrant/ansible/files/nginx.conf /etc/nginx/
+   71  nano /etc/nginx/nginx.conf
+   72  systemctl restart nginx
+   73  ip a
+   74  tail -f /var/log/nginx/error.log
+   75  nano /etc/nginx/nginx.conf
+   76  systemctl restart nginx
+   77  tail -f /var/log/nginx/error.log
+   78  ls /tmp
+   79  ls -lh
+   80  ls -lh /tmp
+   81  tail -f /var/log/nginx/error.log
+   82  systemctl status nginx
+   83  nano /usr/lib/systemd/system/nginx.service
+   84  systectl daemon-reload
+   85  systemctl daemon-reload
+   86  systemctl restart nginx.service
+   87  tail -f /var/log/nginx/error.log
+   88  nano /etc/nginx/nginx.conf
+   89  systemctl restart nginx.service
+   90  tail -f /var/log/nginx/error.log
+   91  ps aux
+   92  tail -f /var/log/nginx/error.log
+   93  setsebool --help
+   94  cat /var/log/audit/audit.log | grep nginx | grep denied
+   95  sestatus
+   96  setenforce 0
+   97  nano /usr/lib/systemd/system/nginx.service
+   98  tail -f /var/log/nginx/error.log
+   99  cp -r /home/vagrant/ansible/roles/ruby/files/app/assets/* /app/public/
+  100  tail -f /var/log/nginx/error.log
