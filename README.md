@@ -10,7 +10,9 @@ ansible-galaxy install -r requirements.yml
 ansible-galaxy collection install -r requirements.yml
 ```
 Then exec playbook:
-`ansible-playbook playbook.yml`
+```
+ansible-playbook playbook.yml
+```
 
 # Variables
 | Variable | Default Key |
