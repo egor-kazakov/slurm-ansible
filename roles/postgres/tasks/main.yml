@@ -40,7 +40,7 @@
     name: "postgresql"
     state: "started"
 
-- name: "Instal psycopg2"
+- name: "Install psycopg2"
   ansible.builtin.yum:
     name: "python-psycopg2"
     state: "latest"
