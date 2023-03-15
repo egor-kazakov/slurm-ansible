@@ -1,9 +1,8 @@
 roles:
-- src: nginxinc.nginx
+- src: geerlingguy.nginx
 - src: geerlingguy.ruby
 
 collections:
 - name: community.general
 - name: community.postgresql
 - name: ansible.posix
-- name: nginxinc.nginx_core
